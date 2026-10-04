@@ -7,6 +7,9 @@ This project in particular the Jupyter Notebook was created to meet all the mile
 
 **Quick Start:** [Running the Notebook](#running-the-notebook)
 
+# Purpose
+
+To create a AI project to predict skin cancer using machine learning techniques. An open source dataset from Hugging Face will be used for source data, and Google Cloud Provider for data storage and analysis. The code will be run from Juptyer Notebook for ease of sharing with peers. 
 
 # Dermalens Skin Data Pipeline
 
