@@ -46,7 +46,6 @@ for split in split_names:
 
 - **Processed data storage locations:**
   - Combined dataset: `gs://{BUCKET_NAME}/combined_data/dermalens_combined.parquet`
-  - Preprocessed features: `gs://{BUCKET_NAME}/preprocessed/skin_preprocessed.parquet`
   - Sharded splits: `gs://{BUCKET_NAME}/sharded/train.parquet`, `dev.parquet`, `test.parquet`
   - CV folds: `gs://{BUCKET_NAME}/sharded/cv_folds/fold_*.parquet`
 
@@ -143,8 +142,10 @@ def upload_to_gcs(bucket_name, source_file_name, destination_blob_name):
 
 - **Version tracking:**
   - Each run can increment the version number
-  - Metadata (dataset hash, row count, timestamp) can be logged
+  - Metadata (dataset hash, row count, timestamp) can be logged in `manifest.json`
   - Git commit SHA can be stored in notebook metadata
+  - GCS automatically tracks `created_at` and `updated_at` timestamps for all objects
+  - Manifest file stores `created_utc` timestamp for reproducibility audit trail
 
 **Code evidence (README):**
 ```markdown
@@ -153,11 +154,29 @@ def upload_to_gcs(bucket_name, source_file_name, destination_blob_name):
 
 **Notebook capability:**
 ```python
-# Example versioning pattern
+# Example versioning pattern with timestamp tracking
+import datetime
+import json
+
 version = "v1"
 destination_blob = f"combined_data/{version}/dermalens_combined.parquet"
 blob = bucket.blob(destination_blob)
 blob.upload_from_filename(str(local_combined_path))
+
+# Create manifest with timestamp for audit trail
+manifest = {
+    "dataset_version": version,
+    "created_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+    "git_commit": "<commit_sha>",  # optional
+    "row_count": len(df),
+    "schema_hash": "<content_hash>"
+}
+with open(f"manifest_v{version}.json", "w") as f:
+    json.dump(manifest, f, indent=2)
+
+# GCS tracks timestamps automatically
+print(f"GCS object created: {blob.time_created}")
+print(f"GCS object updated: {blob.updated}")
 ```
 
 **Acceptance criteria met:** ✅
@@ -485,21 +504,14 @@ for fold_idx, (tr_idx, val_idx) in enumerate(grouped_split(train_reset, n_splits
   combined_df["label"] = combined_df["dx"].isin(MALIGNANT_CLASSES).astype(int)
   ```
 
-  **Step 4: Fill missing values**
-  ```python
-  df["age"] = df["age"].fillna(df["age"].median())
-  df["sex"] = df["sex"].fillna("unknown")
-  df["localization"] = df["localization"].fillna("unknown")
-  ```
-
-  **Step 5: Create grouped stratified splits**
+  **Step 4: Create grouped stratified splits**
   ```python
   group_col = "lesion_id"
   splitter = StratifiedGroupKFold(n_splits=10, shuffle=True, random_state=SEED)
   folds = splitter.split(df, df[TARGET], groups=df[group_col])
   ```
 
-  **Step 6: Generate CV folds from training only**
+  **Step 5: Generate CV folds from training only**
   ```python
   for fold_idx, (tr_idx, val_idx) in enumerate(grouped_split(train_reset, n_splits=8)):
       cv_folds[fold_idx] = (train_reset.iloc[tr_idx], train_reset.iloc[val_idx])
