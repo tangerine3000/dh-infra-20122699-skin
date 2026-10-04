@@ -1,6 +1,14 @@
+# Milestone 1 Peer Grading Rubric
+This project in particular the Jupyter Notebook was created to meet all the milestone 1 requirements
+**[View the Jupyter Notebook](notebook-skin.ipynb)** | **[Open in Google Colab](https://colab.research.google.com/github/tangerine3000/dh-infra-20122699-skin/blob/main/notebook-skin.ipynb)**
+
+Refer to [Milestone-1-Peer-Grading-Rubric-Dermalens](Milestone-1-Peer-Grading-Rubric-Dermalens.md) for details on how the notebook meets all Milestone 1 requirements.
+
+
 # Dermalens Skin Data Pipeline
 
 This project prepares and processes the Dermalens skin lesion dataset for machine learning workflows in a Jupyter notebook environment, with support for cloud storage and parquet-based data handling.
+
 
 ## Project Overview
 
