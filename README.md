@@ -1,5 +1,5 @@
 # Milestone 1 Peer Grading Rubric
-Refer to [Milestone-1-Peer-Grading-Rubric-Dermalens](Milestone-1-Peer-Grading-Rubric-Dermalens) for details on how the notebook meets all Milestone 1 requirements.
+Refer to [Milestone-1-Peer-Grading-Rubric-Dermalens](Milestone-1-Peer-Grading-Rubric-Dermalens.md) for details on how the notebook meets all Milestone 1 requirements.
 
 This project in particular the Jupyter Notebook was created to meet all the milestone 1 requirements
 - **[View the Jupyter Notebook](notebook-skin.ipynb)** 
