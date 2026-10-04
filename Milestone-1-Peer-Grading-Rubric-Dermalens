@@ -63,14 +63,21 @@ for split in split_names:
 # Cell 5: Save combined data
 local_combined_path = combined_dir / "dermalens_combined.parquet"
 combined_df.to_parquet(local_combined_path, index=False)
+client = storage.Client()
+bucket = client.bucket(BUCKET_NAME)
+blob = bucket.blob(f"{GCS_PREFIX}/combined_data/dermalens_combined.parquet")
+blob.upload_from_filename(str(local_combined_path))
 
-# Cell 8: Upload to GCS
-upload_to_gcs(BUCKET_NAME, str(local_combined_path), "combined_data/dermalens_combined.parquet")
-
-# Cell 9: Save splits
+# Cell 8: Save splits and CV folds locally and to GCS
 train_df.to_parquet(sharded_dir / "train.parquet")
 dev_df.to_parquet(sharded_dir / "dev.parquet")
 test_df.to_parquet(sharded_dir / "test.parquet")
+for fold_idx, (_, val) in cv_folds.items():
+    val.to_parquet(sharded_dir / f"cv_folds/fold_{fold_idx}_val.parquet")
+    
+# Upload all shards to GCS
+for name in ["train.parquet", "dev.parquet", "test.parquet"]:
+    upload_to_gcs(BUCKET_NAME, str(sharded_dir / name), f"{GCS_PREFIX}/sharded/{name}")
 ```
 
 **Acceptance criteria met:** ✅
@@ -178,15 +185,22 @@ blob.upload_from_filename(str(local_combined_path))
   
   client = storage.Client()
   bucket = client.bucket("dermalens-skin")
-  blob = bucket.blob("combined_data/dermalens_combined.parquet")
-  blob.download_to_filename("local.parquet")
-  df = pd.read_parquet("local.parquet")
+  # Read directly from GCS using pandas
+  train_df = pd.read_parquet("gs://dermalens-skin/datasets/v1/sharded/train.parquet")
   ```
 
   **Write to GCS:**
   ```python
-  blob = bucket.blob("sharded/train.parquet")
-  blob.upload_from_filename("train.parquet")
+  # Cell 8: Save splits to GCS
+  blob = bucket.blob(f"{GCS_PREFIX}/sharded/train.parquet")
+  blob.upload_from_filename(str(local_path))
+  ```
+  
+  **Verify access (Cell 9):**
+  ```python
+  # Read back from GCS to verify
+  train_check = pd.read_parquet("gs://dermalens-skin/datasets/v1/sharded/train.parquet")
+  print(f"Verified: {len(train_check)} rows")
   ```
 
 - **Authentication:**
@@ -198,19 +212,56 @@ blob.upload_from_filename(str(local_combined_path))
 
 **Code evidence:**
 ```python
-# Cell 5-6: GCS authentication and upload
+# Cell 8: Data organization step - Save splits and CV folds locally and upload to GCS
+from pathlib import Path
 from google.cloud import storage
 
-BUCKET_NAME = "dermalens-skin"
-client = storage.Client()
-bucket = client.bucket(BUCKET_NAME)
+sharded_dir = Path("sharded")
+sharded_dir.mkdir(exist_ok=True)
 
-# Read
-df = pd.read_parquet("combined_data/dermalens_combined.parquet")
+# Save splits locally
+train_df.to_parquet(sharded_dir / "train.parquet")
+dev_df.to_parquet(sharded_dir / "dev.parquet")
+test_df.to_parquet(sharded_dir / "test.parquet")
 
-# Write
-blob = bucket.blob("combined_data/dermalens_combined.parquet")
-blob.upload_from_filename(local_combined_path)
+# Save CV folds
+(sharded_dir / "cv_folds").mkdir(parents=True, exist_ok=True)
+for fold_idx, (_, val) in cv_folds.items():
+    val.to_parquet(sharded_dir / f"cv_folds/fold_{fold_idx}_val.parquet")
+
+# Upload to GCS
+def upload_to_gcs(bucket_name, source_file_name, destination_blob_name):
+    client = storage.Client()
+    bucket = client.bucket(bucket_name)
+    blob = bucket.blob(destination_blob_name)
+    blob.upload_from_filename(source_file_name)
+
+for name in ["train.parquet", "dev.parquet", "test.parquet"]:
+    upload_to_gcs(BUCKET_NAME, str(sharded_dir / name), f"{GCS_PREFIX}/sharded/{name}")
+
+# Cell 9: Dataset manifest and read-back verification
+import json
+import datetime
+
+manifest = {
+    "dataset_version": DATASET_VERSION,
+    "created_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+    "split_method": "StratifiedGroupKFold (10 folds, lesion-grouped, lesion_id as grouping key)",
+    "train_rows": len(train_df),
+    "dev_rows": len(dev_df),
+    "test_rows": len(test_df),
+    "malignant_rate": float(combined_df['label'].mean()),
+}
+
+# Save manifest to GCS
+manifest_path = sharded_dir / "manifest.json"
+with open(manifest_path, "w") as f:
+    json.dump(manifest, f, indent=2)
+upload_to_gcs(BUCKET_NAME, str(manifest_path), f"{GCS_PREFIX}/manifest.json")
+
+# Read back from GCS to verify access
+train_check = pd.read_parquet(f"gs://{BUCKET_NAME}/{GCS_PREFIX}/sharded/train.parquet")
+print(f"Verified train shard: {len(train_check)} rows")
 ```
 
 **Acceptance criteria met:** ✅
