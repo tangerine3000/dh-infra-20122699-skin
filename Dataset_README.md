@@ -55,6 +55,8 @@ dataset_info:
 
 This dataset repo documents the data pipeline used to train the **DermaLens V3** skin cancer classification model.
 
+Hugging Face Source ['Hugging Face ReadMe'](https://huggingface.co/datasets/dheraingoud/dermalens-datasets/blob/main/README.md)
+
 ## Source Dataset
 
 **HAM10000** (Human Against Machine with 10000 training images) — accessed via [`marmal88/skin_cancer`](https://huggingface.co/datasets/marmal88/skin_cancer) on HuggingFace.
