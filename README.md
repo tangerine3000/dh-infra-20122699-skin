@@ -1,8 +1,9 @@
 # Milestone 1 Peer Grading Rubric
-Refer to [Milestone-1-Peer-Grading-Rubric-Dermalens](Milestone-1-Peer-Grading-Rubric-Dermalens.md) for details on how the dh-infra-20122699-skin project meets all Milestone 1 requirements.
+Refer to [Milestone-1-Peer-Grading-Rubric-Dermalens](Milestone-1-Peer-Grading-Rubric-Dermalens.md) for details on how the notebook meets all Milestone 1 requirements.
 
 This project in particular the Jupyter Notebook was created to meet all the milestone 1 requirements
-**[View the Jupyter Notebook](notebook-skin.ipynb)** | **[Open in Google Colab](https://colab.research.google.com/github/tangerine3000/dh-infra-20122699-skin/blob/main/notebook-skin.ipynb)**
+- **[View the Jupyter Notebook](notebook-skin.ipynb)** 
+- **[Open in Google Colab](https://colab.research.google.com/github/tangerine3000/dh-infra-20122699-skin/blob/main/notebook-skin.ipynb)**
 
 **Quick Start:** [Running the Notebook](#running-the-notebook)
 
