@@ -1,0 +1,10 @@
+pandas
+numpy
+pyarrow
+scikit-learn
+google-cloud-storage
+jupyter
+ipykernel
+datasets
+Pillow
+matplotlib
