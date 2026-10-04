@@ -1,5 +1,5 @@
 # Milestone 1 Peer Grading Rubric
-Refer to [Milestone-1-Peer-Grading-Rubric-Dermalens](Milestone-1-Peer-Grading-Rubric-Dermalens.md) for details on how the notebook meets all Milestone 1 requirements.
+Refer to [Milestone-1-Peer-Grading-Rubric-Dermalens](Milestone-1-Peer-Grading-Rubric-Dermalens) for details on how the notebook meets all Milestone 1 requirements.
 
 This project in particular the Jupyter Notebook was created to meet all the milestone 1 requirements
 - **[View the Jupyter Notebook](notebook-skin.ipynb)** 
@@ -40,9 +40,6 @@ Then do the following:
 
 1. Open the GitHub notebook link in your browser.
 2. Click the "Open in Colab" button if it appears on the GitHub page.
-
-![Create notebook from GitHub](images/create-notebook-from-github.png)
-
 3. If the button is not visible, use the Colab URL pattern below:
 
 ```text
