@@ -1,11 +1,27 @@
-# Milestone 1 Peer Grading Rubric
-Refer to [Milestone-1-Peer-Grading-Rubric-Dermalens](Milestone-1-Peer-Grading-Rubric-Dermalens.md) for details on how the notebook meets all Milestone 1 requirements.
+# Dermalens Skin Cancer Classification Pipeline
 
-This project in particular the Jupyter Notebook was created to meet all the milestone 1 requirements
-- **[View the Jupyter Notebook](notebook-skin.ipynb)** 
-- **[Open in Google Colab](https://colab.research.google.com/github/tangerine3000/dh-infra-20122699-skin/blob/main/notebook-skin.ipynb)**
+**Project:** Data Handling & Infrastructure for AI  
+**Task:** Predict skin lesion malignancy from dermoscopic images + patient features  
+**Status:** Milestone 2 (Data Understanding & Feature Engineering)
 
-**Quick Start:** [Running the Notebook](#running-the-notebook)
+## Quick Links
+
+**Milestone 1 (Data Acquisition & Splitting):**
+- **[View M1 Notebook](notebook-skin.ipynb)** 
+- **[Open M1 in Colab](https://colab.research.google.com/github/tangerine3000/dh-infra-20122699-skin/blob/main/notebook-skin.ipynb)**
+
+**Milestone 2 (Data Understanding & Feature Engineering):**
+- **[View M2 Notebook](notebook-skin-2.ipynb)** 
+- **[M2 Running Instructions](#milestone-2-running-the-pipeline)**
+
+---
+
+## Purpose
+
+To build an end-to-end machine learning pipeline that predicts skin lesion malignancy from:
+- **Images:** Dermoscopic lesion photos (RGB, 224×224)
+- **Features:** Patient age, sex, anatomical location
+- **Target:** Binary classification (benign vs. malignant)
 
 # Purpose
 
@@ -29,7 +45,63 @@ This repository contains a notebook-based workflow for:
 - writing processed parquet outputs to Google Cloud Storage
 
 
-## Running the Notebook
+## Milestone 2: Running the Pipeline
+
+### Prerequisites
+
+1. **Python environment** (local or Google Colab recommended)
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate  # macOS/Linux
+   .venv\Scripts\activate      # Windows
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **M1 Output:** Must have completed Milestone 1 (train/dev/test splits in GCS or local)
+
+### Running M2 Notebook
+
+**Option A: Google Colab (Recommended)**
+
+1. Open in Colab:
+   ```
+   https://colab.research.google.com/github/tangerine3000/dh-infra-20122699-skin/blob/main/notebook-skin-2.ipynb
+   ```
+
+2. Authenticate to Google Cloud:
+   ```python
+   from google.colab import auth
+   auth.authenticate_user()
+   ```
+
+3. Execute all cells (top-to-bottom)
+
+**Option B: Local Jupyter**
+
+```bash
+jupyter notebook notebook-skin-2.ipynb
+```
+
+Or:
+
+```bash
+jupyter lab notebook-skin-2.ipynb
+```
+
+### M2 Output
+
+After running the notebook, check `data/processed/m2_outputs/`:
+- `features_train.parquet` — Training features (8,012 records)
+- `features_dev.parquet` — Dev features (1,001 records)
+- `features_test.parquet` — Test features (1,002 records)
+- `metadata.json` — Preprocessing parameters & metadata
+- `eda_*.png` — Exploratory data analysis visualizations
+
+## Milestone 1: Running the Notebook
 
 Recommended Option 1 for quick setup and running scripts
 

@@ -1,0 +1,122 @@
+# Milestone 2: Data Understanding & Pipeline Configuration
+
+project:
+  name: Dermalens Skin Cancer Classification
+  version: m2
+
+data:
+  # M1 processed data (GCS or local)
+  # Update paths based on your M1 output location
+  source_type: gcs  # Options: gcs, local
+
+  # If using GCS (from M1)
+  gcs_bucket: dermalens-skin
+  gcs_prefix: datasets/v1
+
+  # If using local files (download from GCS first)
+  local_data_dir: data/processed
+
+  # Input files from M1
+  train_file: train.parquet
+  dev_file: dev.parquet
+  test_file: test.parquet
+
+image:
+  # Image preprocessing parameters
+  target_height: 224
+  target_width: 224
+  channels: 3
+  normalize: true  # Normalize pixel values to 0-1
+
+  # Image validation
+  valid_formats: [jpg, jpeg, png]
+  max_file_size_mb: 10
+
+features:
+  # Tabular feature engineering
+  numeric:
+    - age
+  numeric_params:
+    age:
+      method: zscore  # Options: zscore, minmax, standard
+      handle_missing: median  # Options: median, mean, drop
+
+  categorical:
+    - sex
+    - localization
+  categorical_params:
+    sex:
+      handle_missing: unknown
+      encoding: onehot  # Options: onehot, ordinal
+    localization:
+      handle_missing: unknown
+      encoding: onehot
+
+validation:
+  # Data validation checks
+  required_fields:
+    - image_id
+    - lesion_id
+    - label
+    - age
+    - sex
+    - localization
+    - partition
+
+  # Type checks
+  numeric_fields: [age, label]
+  categorical_fields: [sex, localization, partition]
+
+  # Value checks
+  label_values: [0, 1]
+  partition_values: [train, dev, test]
+  sex_values: [male, female, unknown]
+
+  # Duplicate checking
+  check_duplicates: true
+  group_by_lesion_id: true  # Ensure no lesion_id leakage
+
+output:
+  # Output directory for processed features
+  output_dir: data/processed/m2_outputs
+
+  # Output files
+  features_train: features_train.parquet
+  features_dev: features_dev.parquet
+  features_test: features_test.parquet
+  metadata: metadata.json
+
+  # Save preprocessed image info (not images themselves, just metadata)
+  image_metadata: image_metadata.parquet
+
+splitting:
+  # Verify/document M1 splitting strategy
+  strategy: stratified_grouped  # stratified_grouped by label, grouped by lesion_id
+  train_ratio: 0.80
+  dev_ratio: 0.10
+  test_ratio: 0.10
+
+  # Check class balance
+  check_stratification: true
+  acceptable_balance_variance: 0.05  # 5% variance in class ratios
+
+eda:
+  # EDA parameters
+  sample_images_per_class: 4  # Show sample images
+  plot_figures: true
+
+  # Age binning for distribution analysis
+  age_bins: [0, 20, 40, 60, 80, 100]
+
+  # Location of interest (might be relevant to skin lesion distribution)
+  top_locations: 10
+
+baseline_model:
+  # For "Next Steps" documentation
+  architecture: cnn_tabular_fusion
+  image_backbone: mobilenetv2  # Options: mobilenetv2, resnet50, efficientnet
+  fusion_method: concat  # Options: concat, attention, separate_heads
+  tabular_encoder: dense  # Simple dense layers for tabular features
+  loss: binary_crossentropy
+  class_weights: true  # Use weights to handle class imbalance
+  target_auc: 0.85
