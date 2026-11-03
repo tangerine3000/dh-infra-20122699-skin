@@ -6,6 +6,9 @@
 
 ## Quick Links
 
+**Repository**
+- [GitHub Repository](https://github.com/tangerine3000/dh-infra-20122699-skin)
+
 **Milestone 1**
 - [View M1 Notebook](notebook-skin.ipynb)
 - [Open M1 in Colab](https://colab.research.google.com/github/tangerine3000/dh-infra-20122699-skin/blob/main/notebook-skin.ipynb)
@@ -14,8 +17,12 @@
 - [View M2 Notebook](notebook-skin-2.ipynb)
 - [Open M2 in Colab](https://colab.research.google.com/github/tangerine3000/dh-infra-20122699-skin/blob/main/notebook-skin-2.ipynb)
 - [Milestone 2 peer grading rubric](Milestone-2-Peer-Grading-Rubric-Dermalens.md)
-- [Reproducibility guide](docs/reproducibility.md)
+- [Project definition and requirements](#end-user-requirements)
+- [Data source and provenance](docs/data_source.md)
 - [Governance and licensing](docs/governance_and_licensing.md)
+- [Pipeline architecture and storage design](docs/pipeline_architecture.md)
+- [Reproducibility guide](docs/reproducibility.md)
+- [Dataset README](Dataset_README.md)
 
 ---
 
@@ -176,9 +183,16 @@ After running the notebook, expected output artifacts include:
 
 ## Additional Documentation
 
-- [Dataset README](Dataset_README.md)
+This repository includes the main evidence required by the Milestone 2 rubric:
+
+- [Project definition and end-user requirements](#end-user-requirements)
+- [Data source and provenance](docs/data_source.md)
 - [Governance and licensing](docs/governance_and_licensing.md)
+- [Pipeline architecture and storage design](docs/pipeline_architecture.md)
+- [Exploratory data analysis and implementation notebook](notebook-skin-2.ipynb)
 - [Reproducibility guide](docs/reproducibility.md)
+- [Milestone 2 peer grading rubric](Milestone-2-Peer-Grading-Rubric-Dermalens.md)
+- [Dataset README](Dataset_README.md)
 - [Prompt archive](docs/prompts/)
 
 This repository is intended to be a transparent, auditable, and reproducible research pipeline rather than a production clinical system.
