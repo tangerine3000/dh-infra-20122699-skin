@@ -1,84 +1,138 @@
 # Dermalens Skin Cancer Classification Pipeline
 
 **Project:** Data Handling & Infrastructure for AI  
-**Task:** Predict skin lesion malignancy from dermoscopic images + patient features  
+**Task:** Predict skin lesion malignancy from dermoscopic images and patient metadata  
 **Status:** Milestone 2 (Data Understanding & Feature Engineering)
 
 ## Quick Links
 
-**Milestone 1 (Data Acquisition & Splitting):**
-- **[View M1 Notebook](notebook-skin.ipynb)** 
-- **[Open M1 in Colab](https://colab.research.google.com/github/tangerine3000/dh-infra-20122699-skin/blob/main/notebook-skin.ipynb)**
+**Milestone 1**
+- [View M1 Notebook](notebook-skin.ipynb)
+- [Open M1 in Colab](https://colab.research.google.com/github/tangerine3000/dh-infra-20122699-skin/blob/main/notebook-skin.ipynb)
 
-**Milestone 2 (Data Understanding & Feature Engineering):**
-- **[View M2 Notebook](notebook-skin-2.ipynb)** 
-- **[M2 Running Instructions](#milestone-2-running-the-pipeline)**
+**Milestone 2**
+- [View M2 Notebook](notebook-skin-2.ipynb)
+- [Open M2 in Colab](https://colab.research.google.com/github/tangerine3000/dh-infra-20122699-skin/blob/main/notebook-skin-2.ipynb)
+- [Milestone 2 peer grading rubric](Milestone-2-Peer-Grading-Rubric-Dermalens.md)
+- [Reproducibility guide](docs/reproducibility.md)
+- [Governance and licensing](docs/governance_and_licensing.md)
 
 ---
 
+## AI Use Acknowledgement
+
+This project was developed with assistance from AI tools to support notebook structure, code drafting, documentation, and troubleshooting. Prompt history used during development is recorded in the [Prompts folder](docs/prompts/).
+
 ## Purpose
 
-To build an end-to-end machine learning pipeline that predicts skin lesion malignancy from:
-- **Images:** Dermoscopic lesion photos (RGB, 224×224)
-- **Features:** Patient age, sex, anatomical location
-- **Target:** Binary classification (benign vs. malignant)
+This project builds an end-to-end machine-learning pipeline that predicts skin lesion malignancy from:
+- dermoscopic lesion images;
+- age, sex, and anatomical location metadata; and
+- a binary target label for malignant vs. benign classification.
 
-# Purpose
-
-To create a AI project to predict skin cancer using machine learning techniques. An open source dataset from Hugging Face will be used for source data, and Google Cloud Provider for data storage and analysis. The code will be run from Juptyer Notebook for ease of sharing with peers. 
-
-# Dermalens Skin Data Pipeline
-
-This project prepares and processes the Dermalens skin lesion dataset for machine learning workflows in a Jupyter notebook environment, with support for cloud storage and parquet-based data handling.
-
+The workflow is designed around reproducibility, cloud storage, and transparent data governance.
 
 ## Project Overview
 
 This repository contains a notebook-based workflow for:
+- loading and validating the Dermalens dataset;
+- deriving a binary target label (`label = 1` for malignant classes, `0` otherwise);
+- checking for duplicates and leakage across train/dev/test partitions;
+- performing exploratory data analysis and feature engineering;
+- preparing reproducible feature tables for downstream modeling; and
+- storing outputs in a versioned, auditable structure.
 
-- downloading or locating dataset split parquet files
-- combining raw data into a single dataset
-- deriving a binary label (`label = 1` for malignant classes, `0` otherwise)
-- removing duplicate rows while preserving metadata integrity
-- creating grouped, stratified train/dev/test splits
-- generating cross-validation folds from the training data
-- writing processed parquet outputs to Google Cloud Storage
+## End-User Requirements
 
+The primary users of this project are researchers, students, and practitioners working in an academic or training context on skin-lesion classification pipelines.
 
-## Milestone 2: Running the Pipeline
+The project should allow a user to:
+- reproduce the data-preparation workflow from source data to cleaned and validated feature tables;
+- load the Dermalens dataset and check schema integrity, leakage, and data quality issues;
+- generate processed outputs suitable for downstream model development;
+- run the workflow in either Google Colab or a local Jupyter environment with clear instructions;
+- understand the dataset balance, limitations, and engineering decisions before model training; and
+- extend the workflow into a baseline model and evaluation pipeline in a later milestone.
+
+This project is intended for transparent, reproducible research and teaching use. It is not presented as a clinical decision system and must be used with the documented governance and licence restrictions.
+
+## Governance and Licensing Summary
+
+The source data was derived from a public medical-imaging dataset and is subject to the dataset licence and terms of use. The repository documentation records the source provenance, access route, and restrictions in [docs/governance_and_licensing.md](docs/governance_and_licensing.md).
+
+Key points:
+- Source dataset: Dermalens / HAM10000-derived public skin lesion data
+- Primary licence: CC-BY-NC 4.0 at source level
+- Intended use: educational, academic, and research workflows
+- Non-commercial use restriction: this project should not be used for commercial deployment without separate rights and legal review
+- Clinical status: research-only; not validated for autonomous medical decision-making
+
+## Architecture and Data Flow
+
+This project implements the following end-to-end workflow, matching the actual code and storage choices in the repository:
+
+Source → Ingest → Validate → Store → Transform → Output
+
+```text
+Source (Dermalens / HAM10000-derived data)
+    ↓
+Ingest
+  - Download/load parquet and metadata files
+  - Load config.yaml and project settings
+    ↓
+Validate
+  - schema checks
+  - required-field and type validation
+  - duplicate and leakage checks
+  - audit of missingness and range constraints
+    ↓
+Store
+  - GCS object storage and versioned data prefixes
+  - local/processed parquet outputs for reproducible runs
+    ↓
+Transform
+  - EDA and feature-quality analysis
+  - image preprocessing and metadata engineering
+  - tabular feature encoding, scaling, and imputation
+    ↓
+Output
+  - train/dev/test feature tables
+  - metadata and EDA summary artifacts
+  - ready for downstream modelling in Milestone 3
+```
+
+For a fuller project-level design description and pipeline overview, see [docs/pipeline_architecture.md](docs/pipeline_architecture.md).
+
+## Reproducibility and Setup
 
 ### Prerequisites
 
-1. **Python environment** (local or Google Colab recommended)
-   ```bash
-   python -m venv .venv
-   source .venv/bin/activate  # macOS/Linux
-   .venv\Scripts\activate      # Windows
-   ```
+1. Python 3.10 or 3.11
+2. Jupyter Notebook or JupyterLab
+3. A Google Cloud project and/or local data directory with the expected M1 outputs
 
-2. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
+### Install dependencies
 
-3. **M1 Output:** Must have completed Milestone 1 (train/dev/test splits in GCS or local)
+```bash
+python -m venv .venv
+source .venv/bin/activate  # macOS/Linux
+.venv\Scripts\activate     # Windows
+pip install -r requirements.txt
+```
 
-### Running M2 Notebook
+### Run the notebooks
 
-**Option A: Google Colab (Recommended)**
+**Option A: Google Colab**
 
-1. Open in Colab:
-   ```
-   https://colab.research.google.com/github/tangerine3000/dh-infra-20122699-skin/blob/main/notebook-skin-2.ipynb
-   ```
+1. Open the notebook in Colab with the GitHub URLs above.
+2. Authenticate to Google Cloud if accessing GCS data:
 
-2. Authenticate to Google Cloud:
-   ```python
-   from google.colab import auth
-   auth.authenticate_user()
-   ```
+```python
+from google.colab import auth
+auth.authenticate_user()
+```
 
-3. Execute all cells (top-to-bottom)
+3. Run all cells from top to bottom.
 
 **Option B: Local Jupyter**
 
@@ -92,94 +146,39 @@ Or:
 jupyter lab notebook-skin-2.ipynb
 ```
 
-### M2 Output
+## Milestone 2 Outputs
 
-After running the notebook, check `data/processed/m2_outputs/`:
-- `features_train.parquet` — Training features (8,012 records)
-- `features_dev.parquet` — Dev features (1,001 records)
-- `features_test.parquet` — Test features (1,002 records)
-- `metadata.json` — Preprocessing parameters & metadata
-- `eda_*.png` — Exploratory data analysis visualizations
+After running the notebook, expected output artifacts include:
+- `data/processed/m2_outputs/features_train.parquet`
+- `data/processed/m2_outputs/features_dev.parquet`
+- `data/processed/m2_outputs/features_test.parquet`
+- `data/processed/m2_outputs/metadata.json`
+- EDA visualization files such as `eda_class_distribution.png`
 
-## Milestone 1: Running the Notebook
-
-Recommended Option 1 for quick setup and running scripts
-
-### Option 1: Open the notebook in Google Colab from GitHub
-
-You can open the notebook directly in Colab by using the GitHub URL:
-
-https://github.com/tangerine3000/dh-infra-20122699-skin/blob/main/notebook-skin.ipynb
-
-Then do the following:
-
-1. Open the GitHub notebook link in your browser.
-2. Click the "Open in Colab" button if it appears on the GitHub page.
-3. If the button is not visible, use the Colab URL pattern below:
+## Project Structure
 
 ```text
-https://colab.research.google.com/github/tangerine3000/dh-infra-20122699-skin/blob/main/notebook-skin.ipynb
+.
+├── README.md
+├── requirements.txt
+├── config.yaml
+├── notebook-skin.ipynb
+├── notebook-skin-2.ipynb
+├── Dataset_README.md
+├── docs/
+│   ├── governance_and_licensing.md
+│   ├── reproducibility.md
+│   ├── prompts/
+│   └── ...
+├── images/
+└── data/
 ```
 
-4. In Colab, install the required dependencies:
+## Additional Documentation
 
-```python
-!pip install -r requirements.txt
-```
+- [Dataset README](Dataset_README.md)
+- [Governance and licensing](docs/governance_and_licensing.md)
+- [Reproducibility guide](docs/reproducibility.md)
+- [Prompt archive](docs/prompts/)
 
-If a file is not available in the notebook environment, install the missing packages manually:
-
-```python
-!pip install pandas numpy pyarrow scikit-learn google-cloud-storage datasets Pillow matplotlib
-```
-
-5. Authenticate to Google Cloud if you need to read/write GCS data:
-
-```python
-from google.colab import auth
-auth.authenticate_user()
-```
-
-6. Before running the notebook, ensure the cloud bucket and paths match your project environment.
-
-### Option 2: Open directly in Jupyter locally
-
-Before running the notebook locally, make sure you have the following installed:
-
-- Python 3.10 or 3.11
-- Jupyter Notebook or JupyterLab
-- `pip` and virtual environment support
-- The project dependencies from `requirements.txt`
-
-Install the required packages for a local notebook environment:
-
-```bash
-python -m venv .venv
-source .venv/bin/activate   # macOS/Linux
-.venv\Scripts\activate      # Windows
-pip install -r requirements.txt
-```
-
-If you want to install the core notebook stack explicitly, use:
-
-```bash
-pip install pandas numpy pyarrow scikit-learn google-cloud-storage jupyter ipykernel datasets Pillow matplotlib
-```
-
-Then open the notebook in Jupyter and run the cells in order:
-
-```bash
-jupyter notebook notebook-skin.ipynb
-```
-
-Or in JupyterLab:
-
-```bash
-jupyter lab
-```
-
-## Additional References
-
-- `Dataset_README.md` for dataset-specific context
-- `requirements.txt` for the project dependency list
-- the notebook cells for pipeline logic and Cloud Storage uploads
+This repository is intended to be a transparent, auditable, and reproducible research pipeline rather than a production clinical system.
