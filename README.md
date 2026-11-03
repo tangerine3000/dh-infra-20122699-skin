@@ -26,10 +26,6 @@
 
 ---
 
-## AI Use Acknowledgement
-
-This project was developed with assistance from AI tools to support notebook structure, code drafting, documentation, and troubleshooting. Prompt history used during development is recorded in the [Prompts folder](docs/prompts/).
-
 ## Purpose
 
 This project builds an end-to-end machine-learning pipeline that predicts skin lesion malignancy from:
@@ -37,7 +33,7 @@ This project builds an end-to-end machine-learning pipeline that predicts skin l
 - age, sex, and anatomical location metadata; and
 - a binary target label for malignant vs. benign classification.
 
-The workflow is designed around reproducibility, cloud storage, and transparent data governance.
+The workflow is designed around reproducibility, cloud storage, and transparent data governance. This project is intended to be a transparent, auditable, and reproducible research pipeline rather than a production clinical system.
 
 ## Project Overview
 
@@ -181,18 +177,15 @@ After running the notebook, expected output artifacts include:
 └── data/
 ```
 
-## Additional Documentation
+## Supporting Documentation
 
-This repository includes the main evidence required by the Milestone 2 rubric:
+The items below are additional project references:
 
-- [Project definition and end-user requirements](#end-user-requirements)
 - [Data source and provenance](docs/data_source.md)
-- [Governance and licensing](docs/governance_and_licensing.md)
-- [Pipeline architecture and storage design](docs/pipeline_architecture.md)
-- [Exploratory data analysis and implementation notebook](notebook-skin-2.ipynb)
-- [Reproducibility guide](docs/reproducibility.md)
-- [Milestone 2 peer grading rubric](Milestone-2-Peer-Grading-Rubric-Dermalens.md)
 - [Dataset README](Dataset_README.md)
-- [Prompt archive](docs/prompts/)
+- [Milestone 2 peer grading rubric](Milestone-2-Peer-Grading-Rubric-Dermalens.md)
 
-This repository is intended to be a transparent, auditable, and reproducible research pipeline rather than a production clinical system.
+
+## AI Use Acknowledgement
+
+This project was developed with assistance from AI tools to support notebook structure, code drafting, documentation, and troubleshooting. Project design prompt history used during development is recorded in the [Prompts folder](docs/prompts/).
