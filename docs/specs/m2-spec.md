@@ -1,7 +1,7 @@
 # Milestone 2 Specification: Data Understanding and Pipeline Setup
 
 **Module:** Data Handling and Infrastructure for AI  
-**Deadline:** Sunday, 1st November 2026 at 23:59  
+**Deadline:** Wednesday, 4 November 2026, 11:59 PM  
 **Submission:** Moodle (one PDF report + repository link)  
 **Weightage:** 10% of overall module grade  
 **Assessment Focus:** Initial report on data and reproducible data pipeline setup
