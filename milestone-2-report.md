@@ -35,14 +35,14 @@ Milestone 1 established the problem framing, data source selection, storage desi
 
 ### Repository evidence
 - Project repository: https://github.com/tangerine3000/dh-infra-20122699-skin
-- Project purpose, source, setup, and run instructions: [README.md](../README.md)
-- Data source and provenance notes: [data_source.md](data_source.md)
-- Governance and licensing notes: [governance_and_licensing.md](governance_and_licensing.md)
-- Reproducibility guide: [reproducibility.md](reproducibility.md)
-- Main pipeline implementation notebook: [notebook-skin-2.ipynb](../notebook-skin-2.ipynb)
-- Repository configuration: [config.yaml](../config.yaml)
-- Dependency specification: [requirements.txt](../requirements.txt)
-- Project folder structure overview: [README.md](../README.md)
+- Project purpose, source, setup, and run instructions: [README.md](README.md)
+- Data source and provenance notes: [docs/data_source.md](docs/data_source.md)
+- Governance and licensing notes: [docs/governance_and_licensing.md](docs/governance_and_licensing.md)
+- Reproducibility guide: [docs/reproducibility.md](docs/reproducibility.md)
+- Main pipeline implementation notebook: [notebook-skin-2.ipynb](notebook-skin-2.ipynb)
+- Repository configuration: [config.yaml](config.yaml)
+- Dependency specification: [requirements.txt](requirements.txt)
+- Project folder structure overview: [README.md](README.md)
 
 ### Data owner and licence
 The underlying source data is derived from the HAM10000 public dermatology archive. The original HAM10000 dataset is licensed under Creative Commons Attribution-NonCommercial (CC-BY-NC 4.0). This project is therefore scoped to academic and educational use only, with no commercial deployment without separate rights and legal review.
@@ -136,17 +136,16 @@ The EDA is not a checklist of summary statistics alone; it directly informs the 
 These decisions make the EDA a central driver of the pipeline rather than a decorative appendix.
 
 ### Visualisation and interpretation
-The repository includes EDA outputs and code-based analysis in [notebook-skin-2.ipynb](../notebook-skin-2.ipynb). These outputs are interpreted as evidence of the data quality issues that drive the pipeline decisions.
+The repository includes EDA outputs and code-based analysis in [notebook-skin-2.ipynb](notebook-skin-2.ipynb). These outputs are interpreted as evidence of the data quality issues that drive the pipeline decisions.
 
 ### Repository evidence for required items
-- README with project purpose, data source, environment setup, and exact run instructions: [README.md](../README.md)
-- Dependency specification: [requirements.txt](../requirements.txt)
-- Data acquisition and validation workflow: [notebook-skin.ipynb](../notebook-skin.ipynb) and [notebook-skin-2.ipynb](../notebook-skin-2.ipynb)
-- Data cleaning and transformation stages: [notebook-skin-2.ipynb](../notebook-skin-2.ipynb)
-- EDA: [notebook-skin-2.ipynb](../notebook-skin-2.ipynb)
-- Clear folder structure and project layout: [README.md](../README.md)
-- Repository history and commit trail: GitHub repository history at https://github.com/tangerine3000/dh-infra-20122699-skin includes EDA outputs and notebook analysis covering distributions, class balance, and metadata quality. These visualisations are interpreted in the notebook and used to justify data-cleaning and feature-engineering choices. The analytic emphasis is on whether the data supports a stable, fundamental preprocessing pipeline before model training begins.
----
+- README with project purpose, data source, environment setup, and exact run instructions: [README.md](README.md)
+- Dependency specification: [requirements.txt](requirements.txt)
+- Data acquisition and validation workflow: [notebook-skin.ipynb](notebook-skin.ipynb) and [notebook-skin-2.ipynb](notebook-skin-2.ipynb)
+- Data cleaning and transformation stages: [notebook-skin-2.ipynb](notebook-skin-2.ipynb)
+- EDA: [notebook-skin-2.ipynb](notebook-skin-2.ipynb)
+- Clear folder structure and project layout: [README.md](README.md)
+- Repository history and commit trail: GitHub repository history at https://github.com/tangerine3000/dh-infra-20122699-skin includes EDA outputs and notebook analysis covering distributions, class balance, and metadata quality. These visualisations are interpreted in the notebook and used to justify data-cleaning and feature-engineering choices. The analytic emphasis is on whether the data supports a stable, fundamental preprocessing pipeline before model training begins.---
 
 ## Design / architecture
 
