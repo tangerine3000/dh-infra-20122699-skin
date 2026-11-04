@@ -22,6 +22,19 @@ The analytical task is a supervised classification problem:
 ### Changes from Milestone 1
 Milestone 1 established the problem framing, data source selection, storage design, and initial splitting strategy. Milestone 2 extends this by grounding the project in a documented end-to-end data pipeline, performing purposeful exploratory data analysis, validating the quality of the data, and preparing transformed feature tables. The central change from Milestone 1 is the shift from data acquisition and storage decisions to evidence-driven pipeline understanding and reproducible feature preparation.
 
+### End-User Requirements
+The primary users of this project are researchers, students, and practitioners working in an academic or training context on skin-lesion classification pipelines.
+
+The project should allow a user to:
+- reproduce the data-preparation workflow from source data to cleaned and validated feature tables;
+- load the Dermalens dataset and check schema integrity, leakage, and data quality issues;
+- generate processed outputs suitable for downstream model development;
+- run the workflow in either Google Colab or a local Jupyter environment with clear instructions;
+- understand the dataset balance, limitations, and engineering decisions before model training; and
+- extend the workflow into a baseline model and evaluation pipeline in a later milestone.
+
+This project is intended for transparent, reproducible research and teaching use. It is not presented as a clinical decision system and must be used with the documented governance and licence restrictions.
+
 ---
 
 ## Data source
@@ -145,7 +158,8 @@ The repository includes EDA outputs and code-based analysis in [notebook-skin-2.
 - Data cleaning and transformation stages: [notebook-skin-2.ipynb](notebook-skin-2.ipynb)
 - EDA: [notebook-skin-2.ipynb](notebook-skin-2.ipynb)
 - Clear folder structure and project layout: [README.md](README.md)
-- Repository history and commit trail: GitHub repository history at https://github.com/tangerine3000/dh-infra-20122699-skin includes EDA outputs and notebook analysis covering distributions, class balance, and metadata quality. These visualisations are interpreted in the notebook and used to justify data-cleaning and feature-engineering choices. The analytic emphasis is on whether the data supports a stable, fundamental preprocessing pipeline before model training begins.---
+- Repository history and commit trail: GitHub repository history at https://github.com/tangerine3000/dh-infra-20122699-skin
+ includes EDA outputs and notebook analysis covering distributions, class balance, and metadata quality. These visualisations are interpreted in the notebook and used to justify data-cleaning and feature-engineering choices. The analytic emphasis is on whether the data supports a stable, fundamental preprocessing pipeline before model training begins.---
 
 ## Design / architecture
 
@@ -249,3 +263,9 @@ The main unresolved issues are practical rather than conceptual:
 
 ## Summary
 This Milestone 2 report demonstrates that the project is well-structured around a clear classification task, a justified data source, documented governance, and a reproducible pipeline. The EDA is used to influence real engineering decisions rather than simply to display summary statistics. The repository therefore provides the evidence required for a robust academic data-handling and infrastructure project in the context of skin-cancer classification.
+
+---
+
+## AI Use Acknowledgement
+
+This project was developed with assistance from AI tools to support notebook structure, code drafting, documentation, and troubleshooting. Project design prompt history used during development is recorded in the [Prompts folder](docs/prompts/).

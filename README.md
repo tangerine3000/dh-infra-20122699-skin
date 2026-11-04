@@ -45,19 +45,6 @@ This repository contains a notebook-based workflow for:
 - preparing reproducible feature tables for downstream modeling; and
 - storing outputs in a versioned, auditable structure.
 
-## End-User Requirements
-
-The primary users of this project are researchers, students, and practitioners working in an academic or training context on skin-lesion classification pipelines.
-
-The project should allow a user to:
-- reproduce the data-preparation workflow from source data to cleaned and validated feature tables;
-- load the Dermalens dataset and check schema integrity, leakage, and data quality issues;
-- generate processed outputs suitable for downstream model development;
-- run the workflow in either Google Colab or a local Jupyter environment with clear instructions;
-- understand the dataset balance, limitations, and engineering decisions before model training; and
-- extend the workflow into a baseline model and evaluation pipeline in a later milestone.
-
-This project is intended for transparent, reproducible research and teaching use. It is not presented as a clinical decision system and must be used with the documented governance and licence restrictions.
 
 ## Governance and Licensing Summary
 
@@ -177,6 +164,3 @@ After running the notebook, expected output artifacts include:
 └── data/
 ```
 
-## AI Use Acknowledgement
-
-This project was developed with assistance from AI tools to support notebook structure, code drafting, documentation, and troubleshooting. Project design prompt history used during development is recorded in the [Prompts folder](docs/prompts/).
