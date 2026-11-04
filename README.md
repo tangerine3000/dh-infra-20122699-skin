@@ -177,15 +177,6 @@ After running the notebook, expected output artifacts include:
 └── data/
 ```
 
-## Supporting Documentation
-
-The items below are additional project references:
-
-- [Data source and provenance](docs/data_source.md)
-- [Dataset README](Dataset_README.md)
-- [Milestone 2 peer grading rubric](Milestone-2-Peer-Grading-Rubric-Dermalens.md)
-
-
 ## AI Use Acknowledgement
 
 This project was developed with assistance from AI tools to support notebook structure, code drafting, documentation, and troubleshooting. Project design prompt history used during development is recorded in the [Prompts folder](docs/prompts/).
