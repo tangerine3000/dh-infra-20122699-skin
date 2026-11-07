@@ -110,3 +110,7 @@ label = 1 if item["dx"] in MALIGNANT_CLASSES else 0
 | Specificity | 91% |
 
 Model weights: [`dheraingoud/dermalens-model`](https://huggingface.co/dheraingoud/dermalens-model)
+
+## Cross-validation fold design
+
+The project keeps its cross-validation shards as separate files so that lesion-level information does not leak across folds. Multiple dermoscopic images from the same lesion are grouped together and reserved within the same split. This is documented in [docs/cv_folds_explained.md](docs/cv_folds_explained.md).
