@@ -174,8 +174,6 @@ Rubric records performance out of 100, then scaled to 10% weighting.
 **Mark Calculation:**
 - Each criterion receives a percentage judgement within the descriptor band
 - Weighted criterion marks produce a Milestone 2 score out of 100
-- Score is multiplied by 0.10 to calculate contribution to overall module grade
-- *Example: 72/100 contributes 7.2 marks out of available 10*
 
 ---
 
